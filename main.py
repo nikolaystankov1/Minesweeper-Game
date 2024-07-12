@@ -1,7 +1,7 @@
 from tkinter import *
 import settings
 import utils
-
+from cell import Cell
 root = Tk()
 #Override the settings of the window
 root.configure(bg='black')
@@ -35,5 +35,15 @@ center_frame.place(
     x=utils.width_prct(25),
     y=utils.height_prct(25)
 )
+
+c1 = Cell()
+c1.create_button_object(center_frame)
+c1.cell_button_object.place(
+    x=0,
+    y=0
+)
+
+
+
 #Run the window
 root.mainloop()
