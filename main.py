@@ -36,13 +36,13 @@ center_frame.place(
     y=utils.height_prct(25)
 )
 
-c1 = Cell()
-c1.create_button_object(center_frame)
-c1.cell_button_object.place(
-    x=0,
-    y=0
-)
-
+for x in range(settings.GRID_SIZE):
+    for y in range(settings.GRID_SIZE):
+        c = Cell()
+        c.create_button_object(center_frame)
+        c.cell_button_object.grid(
+            column=x, row=y
+        )
 
 
 #Run the window
