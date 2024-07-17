@@ -5,9 +5,11 @@ import settings
 
 class Cell:
     all = []
+    cell_count = settings.CELL_COUNT
     cell_count_label_object = None
     def __init__(self, x, y, is_mine=False):
         self.is_mine = is_mine
+        self.is_open = False
         self.cell_button_object = None
         self.x = x  
         self.y = y
@@ -31,7 +33,10 @@ class Cell:
     def create_cell_count_label(location):
         lbl = Label(
             location,
-            text=f'Cells Left:{settings.CELL_COUNT}'
+            bg='black',
+            fg='white',
+            text=f'Cells Left:{Cell.cell_count}',
+            font=('', 30)
         )
         Cell.cell_count_label_object = lbl
         
@@ -77,8 +82,15 @@ class Cell:
         return counter
 
 
-    def show_cell(self):
-        self.cell_button_object.configure(text=self.surrounded_cells_mines_lenght)
+    def show_cell(self): 
+        if not self.is_open:
+            Cell.cell_count -= 1
+            self.cell_button_object.configure(text=self.surrounded_cells_mines_lenght)
+            if Cell.cell_count_label_object:
+                Cell.cell_count_label_object.configure(
+                    text=f'Cells left:{Cell.cell_count}'
+                )
+        self.is_open = True
 
     def show_mine(self):
         self.cell_button_object.configure(bg='red')
